@@ -1,16 +1,17 @@
-var express = require("express");
-var MongoClient=  require("mongodb").MongoClient;
-var url = "mongodb://localhost/agendaNode";
-var router=  express.Router();
+var express 		= require("express");
+var MongoClient		=  require("mongodb").MongoClient;
+var gBD   	   		=  require('./conexion');
+var router			=  express.Router();
+
 
 // Funcion que muestra los eventos asociados al usuario 
-router.get("/all", function (req, res){
+router.get("/all", (req, res) =>{
 	//conecto la base de datos 
 	if (req.session.email_user){
-		MongoClient.connect(url, function (err, db){ 
+		MongoClient.connect(gBD.url, (err, db) =>{ 
 			var base = db.db("agendaNode");
 			var coleccion = base.collection("eventos");
-			coleccion.find({fk_usuario: req.session.email_user}).toArray(function (error, eventos){
+			coleccion.find({fk_usuario: req.session.email_user}).toArray((error, eventos) =>{
 				if (error) throw erro;				
 				res.send(eventos);
 			});
@@ -23,9 +24,9 @@ router.get("/all", function (req, res){
 });
 
 
-router.post("/new", function (req, res){
+router.post("/new", (req, res)=>{
 if (req.session.email_user){
-	MongoClient.connect(url, function(err, db){
+	MongoClient.connect(gBD.url,(err, db)=>{
 		if (err) throw err;
 		var base = db.db("agendaNode");
 		var coleccion = base.collection("eventos");
@@ -41,7 +42,6 @@ if (req.session.email_user){
 			fk_usuario: req.session.email_user
 		});
 		
-		
 		db.close();
 	});
 }	else{
@@ -50,9 +50,9 @@ if (req.session.email_user){
 
 });
 
-router.post("/delete", function (req, res){
+router.post("/delete", (req, res)=>{
 
-	MongoClient.connect(url, function(err, db){
+	MongoClient.connect(gBD.url, (err, db)=>{
 		if (err) throw err;
 		var base = db.db("agendaNode");
 		var coleccion = base.collection("eventos");
@@ -73,9 +73,9 @@ router.post("/delete", function (req, res){
 	});
 });
 
-router.post("/update", function (req, res){
+router.post("/update", (req, res)=>{
 
-	MongoClient.connect(url, function(err, db){
+	MongoClient.connect(gBD.url,(err, db)=>{
 		if (err) throw err;
 		var base = db.db("agendaNode");
 		var coleccion = base.collection("eventos");
@@ -101,9 +101,9 @@ router.post("/update", function (req, res){
 	});
 });
 
-router.get("/logout", function (req,res){
+router.get("/logout", (req,res)=>{
 	req.session.email_user= false;
-	req.session.destroy(function(err) {
+	req.session.destroy((err) =>{
   			res.send("adios");
 	})
 });

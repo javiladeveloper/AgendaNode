@@ -1,10 +1,8 @@
 var MongoClient=require('mongodb').MongoClient
-
-var url="mongodb://localhost/agendaNode"
-
+var gBD   	   =  require('./conexion');
 var Operaciones =require('./CRUD.js')
 
-MongoClient.connect(url,function(err,db){
+MongoClient.connect(gBD.url,function(err,db){
     if(err)console.log(err)
     console.log("Conexión Establecida")
     Operaciones.insertarRegistro(db.db("agendaNode"),(error,result)=>{
