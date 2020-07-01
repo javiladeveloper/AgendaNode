@@ -5,7 +5,8 @@ var MongoClient=  require("mongodb").MongoClient;
 var session    =  require("express-session");
 var http       =  require("http");
 var events     =  require("./router");
-var gBD   	   =  require('./conexion');
+const { url, PORT } = require("./conexion");
+require('./conexion');
 
 var app = express();
 
@@ -19,7 +20,6 @@ app.use(session({
 	saveUninitialized: false
 }));
 
-
 //creo el servidor 
 http.createServer(app);
 
@@ -29,7 +29,7 @@ app.post("/login", (req, res)=>{
 	var user = req.body.user;
 	var pass = req.body.pass;
 	//* conecto a la base de datos 
-	MongoClient.connect(gBD.url, function (err, db){
+	MongoClient.connect(url, function (err, db){
 		if (err)throw err; // gestiono el erro
 		var base = db.db("agendaNode");
 		var coleccion = base.collection("usuarios");
@@ -55,7 +55,7 @@ app.post("/login", (req, res)=>{
 app.use("/events", events);
 //escucha el servidor 
 app.listen(PORT, ()=>{
-	console.log("El servidor agenda GP está corriendo por el servidor : " + gBD.PORT);
+	console.log("El servidor agenda Node está corriendo por el servidor : " + PORT);
 });
 
 

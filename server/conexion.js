@@ -1,2 +1,7 @@
-export var url = "mongodb://localhost/agendaNode";
-export var PORT= 3000;
+var url = "mongodb://localhost/agendaNode";
+var PORT= 3000;
+
+module.exports={
+    url,
+    PORT
+  }

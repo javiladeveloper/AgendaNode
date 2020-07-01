@@ -1,6 +1,7 @@
-var express 		= require("express");
+var express 		=  require("express");
 var MongoClient		=  require("mongodb").MongoClient;
-var gBD   	   		=  require('./conexion');
+const { url } 		= require("./conexion");
+// var gBD   	   		=  require('./conexion');
 var router			=  express.Router();
 
 
@@ -8,7 +9,7 @@ var router			=  express.Router();
 router.get("/all", (req, res) =>{
 	//conecto la base de datos 
 	if (req.session.email_user){
-		MongoClient.connect(gBD.url, (err, db) =>{ 
+		MongoClient.connect(url, (err, db) =>{ 
 			var base = db.db("agendaNode");
 			var coleccion = base.collection("eventos");
 			coleccion.find({fk_usuario: req.session.email_user}).toArray((error, eventos) =>{
@@ -26,7 +27,7 @@ router.get("/all", (req, res) =>{
 
 router.post("/new", (req, res)=>{
 if (req.session.email_user){
-	MongoClient.connect(gBD.url,(err, db)=>{
+	MongoClient.connect(url,(err, db)=>{
 		if (err) throw err;
 		var base = db.db("agendaNode");
 		var coleccion = base.collection("eventos");
@@ -52,7 +53,7 @@ if (req.session.email_user){
 
 router.post("/delete", (req, res)=>{
 
-	MongoClient.connect(gBD.url, (err, db)=>{
+	MongoClient.connect(url, (err, db)=>{
 		if (err) throw err;
 		var base = db.db("agendaNode");
 		var coleccion = base.collection("eventos");
@@ -75,7 +76,7 @@ router.post("/delete", (req, res)=>{
 
 router.post("/update", (req, res)=>{
 
-	MongoClient.connect(gBD.url,(err, db)=>{
+	MongoClient.connect(url,(err, db)=>{
 		if (err) throw err;
 		var base = db.db("agendaNode");
 		var coleccion = base.collection("eventos");

@@ -1,3 +1,0 @@
-LA BASE DE DATOS SE LLAMA agendaGP 
-adjunto las collecions en formato .json 
-el datos de acceso son usuario:gabioh2012@gmail.com   password: sex2004

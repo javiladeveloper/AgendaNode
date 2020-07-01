@@ -1,12 +1,12 @@
 {
-  "name": "agendanodejs",
+  "name": "agendanode",
   "version": "1.0.0",
-  "description": "Agenda practica de node",
+  "description": "Agenda con Node Js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Gabriel Pacheco",
+  "author": "Jonathan Avila",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
